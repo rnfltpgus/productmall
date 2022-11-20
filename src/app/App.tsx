@@ -1,9 +1,19 @@
-import styled from '@emotion/styled';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-const App = () => {
+import Main from 'pages/Main';
+
+import styled from '@emotion/styled';
+import NotFound from 'pages/NotFound';
+import Detail from 'pages/Detail';
+
+const App = (): JSX.Element => {
   return (
     <AppContainer>
-      <div>안녕하세요. 프론트 엔드 분야에 지원한 정세현입니다.</div>
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path=":id" element={<Detail />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </AppContainer>
   );
 };
