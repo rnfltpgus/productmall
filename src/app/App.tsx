@@ -1,20 +1,24 @@
 import { Route, Routes } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from 'store/configureStore';
 
 import Main from 'pages/Main';
+import Detail from 'pages/Detail';
+import NotFound from 'pages/NotFound';
 
 import styled from '@emotion/styled';
-import NotFound from 'pages/NotFound';
-import Detail from 'pages/Detail';
 
 const App = (): JSX.Element => {
   return (
-    <AppContainer>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path=":id" element={<Detail />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </AppContainer>
+    <Provider store={store}>
+      <AppContainer>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path=":id" element={<Detail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AppContainer>
+    </Provider>
   );
 };
 
