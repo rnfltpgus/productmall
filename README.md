@@ -18,5 +18,6 @@
 <br/>
 
 ## 🗺 진행하며 참고한 링크 및 검색어
-- [UI 색상 뽑기](https://coolors.co/fefefe-629acd-7facd6-ebaba8-ffffff)
+- [UI 색상 뽑기](https://coolors.co/ff7900-f7a15a-696969-939393-feb77b)
 - [React Router](https://reactrouter.com/en/main)
+- [Axios API 이용 방법](https://axios-http.com/kr/docs/req_config)

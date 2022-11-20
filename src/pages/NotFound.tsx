@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
   const navigate = useNavigate();
   return (
     <NotFoundContainer>
