@@ -1,5 +1,11 @@
+import ProductCard from './ProductCard';
+
 const ProductList = () => {
-  return <div>ProductList</div>;
+  return (
+    <>
+      <ProductCard />
+    </>
+  );
 };
 
 export default ProductList;

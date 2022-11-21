@@ -1,13 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import Instance from 'api/Instance';
+import { Products } from 'types/product.types';
 
-const fetchProduct = createAsyncThunk('products/fetchProduct', async () => {
-  const productData = await Instance.get('templates/ePNAVU1sgGtQ/data');
+export interface FetchProduct {
+  productList: Products[];
+}
 
-  console.log(productData);
+const fetchProduct = createAsyncThunk<FetchProduct>('products/fetchProduct', async () => {
+  const { data } = await Instance.get<Products[]>('templates/ePNAVU1sgGtQ/data');
 
-  return productData.data;
+  const result: FetchProduct = {
+    productList: [],
+  };
+
+  data.forEach(({ club, price, leaders, partners, createdAt }) => {
+    result.productList.push({ club, price, leaders, partners, createdAt });
+  });
+
+  return result;
 });
 
 export default fetchProduct;

@@ -1,19 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'store/configureStore';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { AppDispatch, RootState } from 'store/configureStore';
 import fetchProduct from 'store/product/productThunk';
-import { Products } from 'types/product.types';
+import ProductList from 'components/ProductList';
+import SearchInput from 'components/SearchInput';
 
 const Main = (): JSX.Element => {
-  const [products, setProducts] = useState<Products[]>([]);
   const dispatch = useDispatch<AppDispatch>();
+  const productInfo = useSelector((state: RootState) => state.product.byId);
 
   useEffect(() => {
     dispatch(fetchProduct());
   }, [dispatch]);
 
-  return <div>썬크 데이터 호출 확인</div>;
+  return (
+    <>
+      <SearchInput />
+      <ProductList />
+    </>
+  );
 };
 
 export default Main;

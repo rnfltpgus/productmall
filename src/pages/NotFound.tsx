@@ -47,7 +47,7 @@ const NotFoundContainer = styled.div`
     cursor: pointer;
     transition: all 300ms ease-in-out;
     transform: translateY(0);
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     height: 3.5vh;
     width: 15vw;
   }

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from 'store/configureStore';
 
@@ -15,6 +15,7 @@ const App = (): JSX.Element => {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path=":id" element={<Detail />} />
+          <Route path="/" element={<Navigate to="/" replace />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AppContainer>
