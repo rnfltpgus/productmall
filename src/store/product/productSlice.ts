@@ -8,11 +8,13 @@ export interface InitialState {
   byId: {
     [key: string]: Products;
   };
+  isLoading: boolean;
 }
 
 const initialState: InitialState = {
   allIds: [],
   byId: {},
+  isLoading: false,
 };
 
 export const productSlice = createSlice({
@@ -20,6 +22,9 @@ export const productSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
+    builder.addCase(fetchProduct.pending, state => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchProduct.fulfilled, (state, action) => {
       const { productList } = action.payload;
 

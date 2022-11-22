@@ -17,7 +17,7 @@ const Main = (): JSX.Element => {
   return (
     <>
       <SearchInput />
-      <ProductList />
+      <ProductList productInfo={productInfo} />
     </>
   );
 };

@@ -22,3 +22,5 @@
 - [React Router](https://reactrouter.com/en/main)
 - [Axios API 이용 방법](https://axios-http.com/kr/docs/req_config)
 - [Thunk 이용 방법](https://redux-toolkit.js.org/api/createAsyncThunk#return-value)
+- [Objects란](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object)
+- [구조분해할당](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
