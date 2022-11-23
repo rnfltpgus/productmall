@@ -8,7 +8,7 @@ import NotFound from 'pages/NotFound';
 
 import styled from '@emotion/styled';
 
-const App = (): JSX.Element => {
+const App = () => {
   return (
     <Provider store={store}>
       <AppContainer>

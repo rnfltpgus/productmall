@@ -1,37 +1,37 @@
-import { Products } from 'types/product.types';
+import { useNavigate } from 'react-router-dom';
 
-const ProductCard = ({ club, price, leaders, partners, createdAt }: Products) => {
-  const { name, type, place, description, meetings } = club;
+import { Club, Person } from 'types/product.types';
+
+interface ProductCardProps {
+  productInfo: {
+    club: Club;
+    price: number;
+    leaders: Person[];
+    partners: Person[];
+    createdAt: string;
+  };
+}
+
+const ProductCard = ({ productInfo }: ProductCardProps) => {
+  const { club, price } = productInfo;
+  const { id, name, type, place, description, coverUrl } = club;
+  const navigate = useNavigate();
+
+  const onClickHandler = (id: string) => {
+    navigate(id);
+  };
 
   return (
-    <>
-      <div>
-        <h2>{name}</h2>
-        <span>{createdAt}</span>
-        <div>
-          <span>리더: </span>
-          {leaders.map(leader => {
-            return leader.name === '' ? (
-              <span>🕹미정</span>
-            ) : (
-              <span key={leader.name}>{leader.name}</span>
-            );
-          })}
-        </div>
-        <div>
-          <span>파트너: </span>
-          {partners.map(partner => {
-            return partner.name === '' ? (
-              <span>🕹미정</span>
-            ) : (
-              <span key={partner.name}>{partner.name}</span>
-            );
-          })}
-        </div>
-        <span>{`유형: ${type}, 장소: ${place}, 주: ${meetings.length} 회 진행, 비용 ₩${price}`}</span>
-        <h4>{description}</h4>
+    <div onClick={() => onClickHandler(id)}>
+      <img src={coverUrl} width="100%" height="100%" alt="club-img" />
+      <h3>{name}</h3>
+      <span>{`${type}, ${place}, ₩${price}`}</span>
+      <div
+        style={{ height: 20, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+      >
+        {description}
       </div>
-    </>
+    </div>
   );
 };
 

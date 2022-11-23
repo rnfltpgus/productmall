@@ -6,7 +6,7 @@ import fetchProduct from 'store/product/productThunk';
 import ProductList from 'components/ProductList';
 import SearchInput from 'components/SearchInput';
 
-const Main = (): JSX.Element => {
+const Main = () => {
   const dispatch = useDispatch<AppDispatch>();
   const productInfo = useSelector((state: RootState) => state.product.byId);
 

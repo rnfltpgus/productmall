@@ -1,14 +1,14 @@
 import ProductCard from './ProductCard';
-import { Products } from 'types/product.types';
 import LoadingSpanner from './LoadingSpanner';
+import { Products } from 'types/product.types';
 
-interface IProductListProps {
+interface ProductListProps {
   productInfo: {
     [key: string]: Products;
   };
 }
 
-const ProductList = ({ productInfo }: IProductListProps): JSX.Element => {
+const ProductList = ({ productInfo }: ProductListProps) => {
   return (
     <>
       {Object.keys(productInfo).length === 0 ? (
@@ -16,18 +16,7 @@ const ProductList = ({ productInfo }: IProductListProps): JSX.Element => {
       ) : (
         <>
           {Object.entries(productInfo).map(([key, value]) => {
-            const { club, price, leaders, partners, createdAt } = value;
-
-            return (
-              <ProductCard
-                key={key}
-                club={club}
-                price={price}
-                leaders={leaders}
-                partners={partners}
-                createdAt={createdAt}
-              />
-            );
+            return <ProductCard key={key} productInfo={value} />;
           })}
         </>
       )}

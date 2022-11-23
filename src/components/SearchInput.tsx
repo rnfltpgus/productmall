@@ -41,7 +41,9 @@ const SearchInput = () => {
 
 export default SearchInput;
 
-const SearchInputContainer = styled.div``;
+const SearchInputContainer = styled.div`
+  margin-bottom: 1rem;
+`;
 
 const Input = styled.input`
   width: 70%;
