@@ -34,7 +34,7 @@ const SearchInput = () => {
         onKeyUp={onSearchKeyword}
       />
       <Button onClick={filterButtonHandler}>필터</Button>
-      {showFilter && <SearchFilter />}
+      {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
     </SearchInputContainer>
   );
 };

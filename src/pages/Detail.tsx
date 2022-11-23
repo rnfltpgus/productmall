@@ -1,9 +1,13 @@
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
+import 'dayjs/locale/ko';
 
 import { RootState } from 'store/configureStore';
 
 type MouseEvent = React.MouseEvent<HTMLButtonElement>;
+
+dayjs.locale('ko');
 
 const Detail = () => {
   const { id: productId } = useParams();
@@ -24,7 +28,7 @@ const Detail = () => {
         <img src={targetProduct.club.coverUrl} width="100%" height="100%" alt="club-img" />
         <hr />
         <h2>{targetProduct.club.name}</h2>
-        <span>{targetProduct.createdAt}</span>
+        <span>{dayjs(targetProduct.createdAt).format('MM/DD/MM (ddd) HH:MM')}</span>
         <div>
           <span>리더: </span>
           {targetProduct.leaders.map(leader => {

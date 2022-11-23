@@ -2,6 +2,8 @@ import ProductCard from './ProductCard';
 import LoadingSpanner from './LoadingSpanner';
 import { Products } from 'types/product.types';
 
+import styled from '@emotion/styled';
+
 interface ProductListProps {
   productInfo: {
     [key: string]: Products;
@@ -10,7 +12,7 @@ interface ProductListProps {
 
 const ProductList = ({ productInfo }: ProductListProps) => {
   return (
-    <>
+    <ProductListContainer>
       {Object.keys(productInfo).length === 0 ? (
         <LoadingSpanner />
       ) : (
@@ -20,8 +22,13 @@ const ProductList = ({ productInfo }: ProductListProps) => {
           })}
         </>
       )}
-    </>
+    </ProductListContainer>
   );
 };
 
 export default ProductList;
+
+const ProductListContainer = styled.div`
+  height: 91vh;
+  overflow: scroll;
+`;
