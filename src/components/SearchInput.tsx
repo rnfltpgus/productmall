@@ -25,17 +25,19 @@ const SearchInput = () => {
   };
 
   return (
-    <SearchInputContainer>
-      <Input
-        type="text"
-        ref={inputRef}
-        defaultValue={keyword}
-        placeholder="검색어를 입력해주세요"
-        onKeyUp={onSearchKeyword}
-      />
-      <Button onClick={filterButtonHandler}>필터</Button>
-      {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
-    </SearchInputContainer>
+    <>
+      <SearchInputContainer>
+        <Input
+          type="text"
+          ref={inputRef}
+          defaultValue={keyword}
+          placeholder="검색어를 입력해주세요"
+          onKeyUp={onSearchKeyword}
+        />
+        <Button onClick={filterButtonHandler}>필터</Button>
+        {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
+      </SearchInputContainer>
+    </>
   );
 };
 

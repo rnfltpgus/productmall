@@ -22,16 +22,18 @@ const ProductCard = ({ productInfo }: ProductCardProps) => {
   };
 
   return (
-    <div onClick={() => onClickHandler(id)}>
-      <img src={coverUrl} width="100%" height="100%" alt="club-img" />
-      <h3>{name}</h3>
-      <span>{`${type}, ${place}, ₩${price}`}</span>
-      <div
-        style={{ height: 20, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-      >
-        {description}
+    <>
+      <div onClick={() => onClickHandler(id)}>
+        <img src={coverUrl} width="100%" height="100%" alt="club-img" />
+        <h3>{name}</h3>
+        <span>{`${type}, ${place}, ₩${price}`}</span>
+        <div
+          style={{ height: 20, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
+        >
+          {description}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -12,17 +12,19 @@ interface ProductListProps {
 
 const ProductList = ({ productInfo }: ProductListProps) => {
   return (
-    <ProductListContainer>
-      {Object.keys(productInfo).length === 0 ? (
-        <LoadingSpanner />
-      ) : (
-        <>
-          {Object.entries(productInfo).map(([key, value]) => {
-            return <ProductCard key={key} productInfo={value} />;
-          })}
-        </>
-      )}
-    </ProductListContainer>
+    <>
+      <ProductListContainer>
+        {Object.keys(productInfo).length === 0 ? (
+          <LoadingSpanner />
+        ) : (
+          <>
+            {Object.entries(productInfo).map(([key, value]) => {
+              return <ProductCard key={key} productInfo={value} />;
+            })}
+          </>
+        )}
+      </ProductListContainer>
+    </>
   );
 };
 
