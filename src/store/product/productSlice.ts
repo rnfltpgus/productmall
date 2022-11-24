@@ -36,6 +36,7 @@ export const productSlice = createSlice({
           partners: item.partners,
           createdAt: item.createdAt,
         };
+        state.allIds.push(item.club.id);
       });
     });
   },

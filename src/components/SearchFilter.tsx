@@ -1,4 +1,8 @@
+import { useSelector } from 'react-redux';
+
+import { RootState } from 'store/configureStore';
 import Modal from './Modal';
+import FilterGroup from './FilterGroup';
 
 import styled from '@emotion/styled';
 
@@ -7,10 +11,19 @@ type SearchFilterProp = {
 };
 
 const SearchFilter = ({ isFilterHandler }: SearchFilterProp) => {
+  const productInfo = useSelector((state: RootState) => state.product.byId);
+  const productInfoArray = Object.values(productInfo);
+  const productType = productInfoArray.map(value => value.club.type);
+  const filteredProductTypeList = new Set<string>([]);
+
+  productType.forEach(item => {
+    filteredProductTypeList.add(item);
+  });
+
   return (
     <>
       <Modal className="SearchFilter" visible={true}>
-        <Option></Option>
+        <FilterGroup type="장소" label={filteredProductTypeList} />
         <Button onClick={isFilterHandler}>필터 종료</Button>
       </Modal>
     </>
@@ -18,11 +31,6 @@ const SearchFilter = ({ isFilterHandler }: SearchFilterProp) => {
 };
 
 export default SearchFilter;
-
-const Option = styled.div`
-  width: 100%;
-  height: 30vh;
-`;
 
 const Button = styled.button`
   width: 100%;

@@ -11,14 +11,16 @@ interface ProductListProps {
 }
 
 const ProductList = ({ productInfo }: ProductListProps) => {
+  const productInfoArray = Object.entries(productInfo);
+
   return (
     <>
       <ProductListContainer>
-        {Object.keys(productInfo).length === 0 ? (
+        {productInfoArray.length === 0 ? (
           <LoadingSpanner />
         ) : (
           <>
-            {Object.entries(productInfo).map(([key, value]) => {
+            {productInfoArray.map(([key, value]) => {
               return <ProductCard key={key} productInfo={value} />;
             })}
           </>
