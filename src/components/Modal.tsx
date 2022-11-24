@@ -1,16 +1,14 @@
-import React from 'react';
-
 import styled from '@emotion/styled';
 
 interface ModalStyleProps {
   visible: boolean;
 }
 
-type ModalProps = {
+interface ModalProps {
   className: string;
   visible: boolean;
   children: React.ReactNode;
-};
+}
 
 const Modal = ({ className, visible, children }: ModalProps) => {
   return (
