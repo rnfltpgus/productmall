@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { AppDispatch, RootState } from 'store/configureStore';
+import { addFilter, removeFilter } from 'store/product/productSlice';
 import CheckBox from './CheckBox';
 
 import styled from '@emotion/styled';
@@ -10,15 +12,14 @@ interface FilterGroupProps {
 }
 
 const FilterGroup = ({ type, label }: FilterGroupProps) => {
-  const [clickedItemList, setIsClickedItemList] = useState<string[]>([]);
+  const filterListInfo = useSelector((state: RootState) => state.product.filterList);
+  const dispatch = useDispatch<AppDispatch>();
 
   const clickLabelHandler = (value: string) => {
-    if (clickedItemList.includes(value)) {
-      const filterResult = clickedItemList.filter(item => item !== value);
-
-      setIsClickedItemList(filterResult);
+    if (filterListInfo.includes(value)) {
+      dispatch(removeFilter(value));
     } else {
-      setIsClickedItemList([...clickedItemList, value]);
+      dispatch(addFilter(value));
     }
   };
 
@@ -29,7 +30,7 @@ const FilterGroup = ({ type, label }: FilterGroupProps) => {
         return (
           <CheckBox
             key={data}
-            isChecked={clickedItemList.includes(data)}
+            isChecked={filterListInfo.includes(data)}
             clickHandler={() => clickLabelHandler(data)}
             label={data}
           />

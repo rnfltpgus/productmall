@@ -1,3 +1,6 @@
+import { useSelector } from 'react-redux';
+import { RootState } from 'store/configureStore';
+
 import ProductCard from './ProductCard';
 import LoadingSpanner from './LoadingSpanner';
 import { Products } from 'types/product.types';
@@ -11,12 +14,13 @@ interface ProductListProps {
 }
 
 const ProductList = ({ productInfo }: ProductListProps) => {
+  const isLoading = useSelector((state: RootState) => state.product.isLoading);
   const productInfoArray = Object.entries(productInfo);
 
   return (
     <>
       <ProductListContainer>
-        {productInfoArray.length === 0 ? (
+        {isLoading ? (
           <LoadingSpanner />
         ) : (
           <>

@@ -9,18 +9,34 @@ export interface InitialState {
     [key: string]: Products;
   };
   isLoading: boolean;
+  filterList: string[];
+  searchKeyword: string;
 }
 
 const initialState: InitialState = {
   allIds: [],
   byId: {},
   isLoading: false,
+  filterList: [],
+  searchKeyword: '',
 };
 
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    addFilter: (state, action) => {
+      const { payload } = action;
+
+      state.filterList.push(payload);
+    },
+    removeFilter: (state, action) => {
+      const { payload } = action;
+      const filterResult = state.filterList.filter(item => item !== payload);
+
+      state.filterList = filterResult;
+    },
+  },
   extraReducers: builder => {
     builder.addCase(fetchProduct.pending, state => {
       state.isLoading = true;
@@ -36,12 +52,15 @@ export const productSlice = createSlice({
           partners: item.partners,
           createdAt: item.createdAt,
         };
+
         state.allIds.push(item.club.id);
       });
+
+      state.isLoading = false;
     });
   },
 });
 
-// export const {} = productSlice.actions;
+export const { addFilter, removeFilter } = productSlice.actions;
 
 export default productSlice.reducer;
