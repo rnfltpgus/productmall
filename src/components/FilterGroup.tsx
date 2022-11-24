@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch, RootState } from 'store/configureStore';
+import { AppDispatch, productFilterList } from 'store/configureStore';
 import { addFilter, removeFilter } from 'store/product/productSlice';
 import CheckBox from './CheckBox';
 
@@ -12,7 +12,7 @@ interface FilterGroupProps {
 }
 
 const FilterGroup = ({ type, label }: FilterGroupProps) => {
-  const filterListInfo = useSelector((state: RootState) => state.product.filterList);
+  const filterListInfo = useSelector(productFilterList);
   const dispatch = useDispatch<AppDispatch>();
 
   const clickLabelHandler = (value: string) => {
@@ -24,19 +24,21 @@ const FilterGroup = ({ type, label }: FilterGroupProps) => {
   };
 
   return (
-    <FilterGroupContainer>
-      <legend>{type}</legend>
-      {[...label].map(data => {
-        return (
-          <CheckBox
-            key={data}
-            isChecked={filterListInfo.includes(data)}
-            clickHandler={() => clickLabelHandler(data)}
-            label={data}
-          />
-        );
-      })}
-    </FilterGroupContainer>
+    <>
+      <FilterGroupContainer>
+        <TypeTitle>{type}</TypeTitle>
+        {[...label].map(data => {
+          return (
+            <CheckBox
+              key={data}
+              isChecked={filterListInfo.includes(data)}
+              clickHandler={() => clickLabelHandler(data)}
+              label={data}
+            />
+          );
+        })}
+      </FilterGroupContainer>
+    </>
   );
 };
 
@@ -44,5 +46,7 @@ export default FilterGroup;
 
 const FilterGroupContainer = styled.form`
   width: 100%;
-  height: 30vh;
+  height: 10vh;
 `;
+
+const TypeTitle = styled.h3``;

@@ -1,23 +1,24 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { setSearchKeyword } from 'store/product/productSlice';
+import { AppDispatch } from 'store/configureStore';
 import SearchFilter from './SearchFilter';
 
 import styled from '@emotion/styled';
 
-type KeyboardEvent = React.KeyboardEvent<HTMLInputElement>;
+type ChangeEvent = React.ChangeEvent<HTMLFormElement>;
 
 const SearchInput = () => {
-  const inputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState('');
   const [showFilter, setShowFilter] = useState<boolean>(false);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const onSearchKeyword = (event: KeyboardEvent) => {
-    if (event.code === 'Enter') {
-      const enteredKeyword = inputRef.current?.value;
-      const trimmedKeyword = enteredKeyword ? enteredKeyword.trim() : '';
+  const handleSearchValue = (event: ChangeEvent) => {
+    event.preventDefault();
 
-      setKeyword(trimmedKeyword);
-    }
+    dispatch(setSearchKeyword(keyword));
+    setKeyword('');
   };
 
   const filterButtonHandler = () => {
@@ -27,16 +28,17 @@ const SearchInput = () => {
   return (
     <>
       <SearchInputContainer>
-        <Input
-          type="text"
-          ref={inputRef}
-          defaultValue={keyword}
-          placeholder="검색어를 입력해주세요"
-          onKeyUp={onSearchKeyword}
-        />
+        <Form onSubmit={handleSearchValue}>
+          <Input
+            type="text"
+            placeholder="검색어를 입력해주세요."
+            value={keyword}
+            onChange={event => setKeyword(event.target.value)}
+          />
+        </Form>
         <Button onClick={filterButtonHandler}>필터</Button>
-        {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
       </SearchInputContainer>
+      {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
     </>
   );
 };
@@ -45,10 +47,12 @@ export default SearchInput;
 
 const SearchInputContainer = styled.div`
   margin-bottom: 1rem;
+  display: flex;
 `;
 
+const Form = styled.form``;
+
 const Input = styled.input`
-  width: 70%;
   height: 3.5vh;
   padding-left: 0.5rem;
   border: 1px solid #c4c4c4;

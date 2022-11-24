@@ -2,6 +2,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Club, Person } from 'types/product.types';
 
+import styled from '@emotion/styled';
+
 interface ProductCardProps {
   productInfo: {
     club: Club;
@@ -23,18 +25,34 @@ const ProductCard = ({ productInfo }: ProductCardProps) => {
 
   return (
     <>
-      <div onClick={() => onClickHandler(id)}>
-        <img src={coverUrl} width="100%" height="100%" alt="club-img" />
+      <ProductCardContainer onClick={() => onClickHandler(id)}>
+        <img src={coverUrl} alt="club-img" />
         <h3>{name}</h3>
         <span>{`${type}, ${place}, ₩${price}`}</span>
-        <div
-          style={{ height: 20, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
-        >
-          {description}
-        </div>
-      </div>
+        <Description>{description}</Description>
+      </ProductCardContainer>
     </>
   );
 };
 
 export default ProductCard;
+
+const ProductCardContainer = styled.div`
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: 1px solid #c4c4c4;
+  border-radius: 0.3rem;
+  padding: 0.5rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+  }
+`;
+
+const Description = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

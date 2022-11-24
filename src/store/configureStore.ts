@@ -13,3 +13,8 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+export const productIsLoading = (state: RootState) => state.product.isLoading;
+export const productFilterList = (state: RootState) => state.product.filterList;
+export const productSearchKeyword = (state: RootState) => state.product.searchKeyword;
+export const productListById = (state: RootState) => state.product.byId;

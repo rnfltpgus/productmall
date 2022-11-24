@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { RootState } from 'store/configureStore';
+import { productListById } from 'store/configureStore';
 import Modal from './Modal';
 import FilterGroup from './FilterGroup';
 
@@ -11,19 +11,22 @@ type SearchFilterProp = {
 };
 
 const SearchFilter = ({ isFilterHandler }: SearchFilterProp) => {
-  const productInfo = useSelector((state: RootState) => state.product.byId);
+  const productInfo = useSelector(productListById);
   const productInfoArray = Object.values(productInfo);
-  const productType = productInfoArray.map(value => value.club.type);
+  const productCategory = productInfoArray.map(value => value.club);
+  const filteredProductPlaceList = new Set<string>([]);
   const filteredProductTypeList = new Set<string>([]);
 
-  productType.forEach(item => {
-    filteredProductTypeList.add(item);
+  productCategory.forEach(item => {
+    filteredProductPlaceList.add(item.place);
+    filteredProductTypeList.add(item.type);
   });
 
   return (
     <>
       <Modal className="SearchFilter" visible={true}>
-        <FilterGroup type="장소" label={filteredProductTypeList} />
+        <FilterGroup type="장소" label={filteredProductPlaceList} />
+        <FilterGroup type="유형" label={filteredProductTypeList} />
         <Button onClick={isFilterHandler}>필터 종료</Button>
       </Modal>
     </>
