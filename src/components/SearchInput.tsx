@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { setSearchKeyword } from 'store/product/productSlice';
-import { AppDispatch } from 'store/configureStore';
+import { resetFilter, setSearchKeyword } from 'store/product/productSlice';
+import { AppDispatch, productFilterList, productSearchKeyword } from 'store/configureStore';
 import SearchFilter from './SearchFilter';
 
 import styled from '@emotion/styled';
@@ -13,16 +14,47 @@ const SearchInput = () => {
   const [keyword, setKeyword] = useState('');
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const dispatch = useDispatch<AppDispatch>();
+  const filterListInfo = useSelector(productFilterList);
+  const searchKeywordInfo = useSelector(productSearchKeyword);
+  const navigate = useNavigate();
 
   const handleSearchValue = (event: ChangeEvent) => {
     event.preventDefault();
 
     dispatch(setSearchKeyword(keyword));
+
+    if (!keyword) {
+      navigate({
+        pathname: '/',
+      });
+    } else {
+      navigate({
+        pathname: '/',
+        search: `search?q=${keyword}?filter=${filterListInfo}`,
+      });
+    }
+
     setKeyword('');
   };
 
   const filterButtonHandler = () => {
+    if (!filterListInfo.length) {
+      navigate({
+        search: `search?q=${searchKeywordInfo}`,
+      });
+    } else {
+      navigate({
+        pathname: '/',
+        search: `search?q=${searchKeywordInfo}?filter=${filterListInfo}`,
+      });
+    }
+
     setShowFilter(!showFilter);
+  };
+
+  const resetFilterButtonHandler = () => {
+    dispatch(resetFilter());
+    navigate('/');
   };
 
   return (
@@ -37,6 +69,7 @@ const SearchInput = () => {
           />
         </Form>
         <Button onClick={filterButtonHandler}>필터</Button>
+        <Button onClick={resetFilterButtonHandler}>리셋필터</Button>
       </SearchInputContainer>
       {showFilter && <SearchFilter isFilterHandler={filterButtonHandler} />}
     </>

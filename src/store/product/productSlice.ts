@@ -36,7 +36,11 @@ export const productSlice = createSlice({
 
       state.filterList = filterResult;
     },
-    setSearchKeyword(state, action) {
+    resetFilter: state => {
+      state.searchKeyword = '';
+      state.filterList = [];
+    },
+    setSearchKeyword(state, action: PayloadAction<string>) {
       const { payload } = action;
 
       state.searchKeyword = payload;
@@ -66,6 +70,6 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addFilter, removeFilter, setSearchKeyword } = productSlice.actions;
+export const { addFilter, removeFilter, setSearchKeyword, resetFilter } = productSlice.actions;
 
 export default productSlice.reducer;
