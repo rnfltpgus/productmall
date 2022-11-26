@@ -10,12 +10,10 @@ interface CheckBoxProps {
 
 const CheckBox = ({ label, isChecked, clickHandler }: CheckBoxProps) => {
   return (
-    <>
-      <Label>
-        <Input type="checkbox" checked={isChecked} onChange={clickHandler} />
-        {label}
-      </Label>
-    </>
+    <Label>
+      <Input type="checkbox" checked={isChecked} onChange={clickHandler} />
+      {label}
+    </Label>
   );
 };
 

@@ -28,10 +28,17 @@ const SearchInput = () => {
         pathname: '/',
       });
     } else {
-      navigate({
-        pathname: '/',
-        search: `search?q=${keyword}?filter=${filterListInfo}`,
-      });
+      if (!filterListInfo.length) {
+        navigate({
+          pathname: '/',
+          search: `search?q=${keyword}`,
+        });
+      } else {
+        navigate({
+          pathname: '/',
+          search: `search?q=${searchKeywordInfo}?filter=${filterListInfo}`,
+        });
+      }
     }
 
     setKeyword('');

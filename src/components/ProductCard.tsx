@@ -24,14 +24,12 @@ const ProductCard = ({ productInfo }: ProductCardProps) => {
   };
 
   return (
-    <>
-      <ProductCardContainer onClick={() => onClickHandler(id)}>
-        <img src={coverUrl} alt="club-img" />
-        <h3>{name}</h3>
-        <span>{`${type}, ${place}, ₩${price}`}</span>
-        <Description>{description}</Description>
-      </ProductCardContainer>
-    </>
+    <ProductCardContainer onClick={() => onClickHandler(id)}>
+      <img src={coverUrl} alt="club-img" />
+      <h3>{name}</h3>
+      <span>{`${type}, ${place}, ₩${price}`}</span>
+      <Description>{description}</Description>
+    </ProductCardContainer>
   );
 };
 

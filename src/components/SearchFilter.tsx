@@ -23,13 +23,11 @@ const SearchFilter = ({ isFilterHandler }: SearchFilterProp) => {
   });
 
   return (
-    <>
-      <Modal className="SearchFilter" visible={true}>
-        <FilterGroup type="장소" label={filteredProductPlaceList} />
-        <FilterGroup type="유형" label={filteredProductTypeList} />
-        <Button onClick={isFilterHandler}>필터 종료</Button>
-      </Modal>
-    </>
+    <Modal className="SearchFilter" visible={true}>
+      <FilterGroup type="장소" label={filteredProductPlaceList} />
+      <FilterGroup type="유형" label={filteredProductTypeList} />
+      <Button onClick={isFilterHandler}>필터 종료</Button>
+    </Modal>
   );
 };
 

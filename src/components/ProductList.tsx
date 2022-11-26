@@ -1,6 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { productFilterList, productIsLoading, productSearchKeyword } from 'store/configureStore';
+import fetchProduct from 'store/product/productThunk';
+import {
+  AppDispatch,
+  productFilterList,
+  productIsLoading,
+  productListById,
+  productSearchKeyword,
+} from 'store/configureStore';
 import ProductCard from './ProductCard';
 import LoadingSpanner from './LoadingSpanner';
 import { Products } from 'types/product.types';
@@ -8,42 +16,67 @@ import { isMatchName, isMatchKeyword, isMatchOptions } from 'helper/helper';
 
 import styled from '@emotion/styled';
 
-interface ProductListProps {
-  productInfo: {
-    [key: string]: Products;
-  };
-}
-
-const ProductList = ({ productInfo }: ProductListProps) => {
+const ProductList = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const productInfo = useSelector(productListById);
   const filterListInfo = useSelector(productFilterList);
   const searchKeywordInfo = useSelector(productSearchKeyword);
   const isLoading = useSelector(productIsLoading);
-  const productArray = Object.values(productInfo);
+  const [bottom, setBottom] = useState<HTMLDivElement | null>(null);
+  const bottomObserver = useRef<IntersectionObserver | null>(null);
+  const [ResultList, setResultList] = useState<Products[]>([]);
+  const [listLength, setListLength] = useState<number>(5);
+  const productArray = Object.values(productInfo).slice(0, listLength);
 
-  let productResultList = productArray;
+  useEffect(() => {
+    setResultList(productArray);
+  }, [listLength]);
 
-  const productResult = () => {
-    if (searchKeywordInfo) {
-      productResultList = productResultList.filter(productInfo => {
-        const { club, leaders, partners } = productInfo;
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries[0].isIntersecting) {
+          dispatch(fetchProduct());
+        }
+      },
+      { threshold: 0.5 }
+    );
+    bottomObserver.current = observer;
+  }, [dispatch]);
 
-        return (
-          isMatchKeyword(`${club.name}${club.description}`, searchKeywordInfo) ||
-          isMatchName([...leaders, ...partners], searchKeywordInfo)
-        );
-      });
+  useEffect(() => {
+    if (isLoading) return;
+
+    const observer = bottomObserver.current;
+
+    if (bottom) {
+      observer?.observe(bottom);
+      setListLength(listLength + 5);
     }
 
-    if (filterListInfo.length) {
-      productResultList = productResultList.filter(productInfo => {
-        return isMatchOptions(`${productInfo.club.type}${productInfo.club.place}`, filterListInfo);
-      });
-    }
+    return () => {
+      if (bottom) observer?.unobserve(bottom);
+    };
+  }, [bottom]);
 
-    return productResultList;
-  };
+  let productResultList = ResultList;
 
-  productResult();
+  if (searchKeywordInfo) {
+    productResultList = productResultList.filter(productInfo => {
+      const { club, leaders, partners } = productInfo;
+
+      return (
+        isMatchKeyword(`${club.name}${club.description}`, searchKeywordInfo) ||
+        isMatchName([...leaders, ...partners], searchKeywordInfo)
+      );
+    });
+  }
+
+  if (filterListInfo.length) {
+    productResultList = productResultList.filter(productInfo => {
+      return isMatchOptions(`${productInfo.club.type}${productInfo.club.place}`, filterListInfo);
+    });
+  }
 
   return (
     <>
@@ -59,6 +92,7 @@ const ProductList = ({ productInfo }: ProductListProps) => {
             ) : (
               <div>❌ 검색 결과가 없습니다.</div>
             )}
+            <Observer ref={setBottom} />
           </>
         )}
       </ProductListContainer>
@@ -71,4 +105,9 @@ export default ProductList;
 const ProductListContainer = styled.div`
   height: 91vh;
   overflow: scroll;
+`;
+
+const Observer = styled.div`
+  background-color: #ff9191;
+  height: 3.5vh;
 `;

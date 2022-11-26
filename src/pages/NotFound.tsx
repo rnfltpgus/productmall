@@ -6,20 +6,18 @@ const NotFound = () => {
   const navigate = useNavigate();
 
   return (
-    <>
-      <NotFoundContainer>
-        <div>Not Found Page</div>
-        <span>페이지를 찾을 수 없습니다.</span>
-        <span>버튼을 누르면 메인 페이지으로 이동합니다.</span>
-        <button
-          onClick={() => {
-            navigate('/');
-          }}
-        >
-          메인 페이지로 이동
-        </button>
-      </NotFoundContainer>
-    </>
+    <NotFoundContainer>
+      <div>Not Found Page</div>
+      <span>페이지를 찾을 수 없습니다.</span>
+      <span>버튼을 누르면 메인 페이지으로 이동합니다.</span>
+      <button
+        onClick={() => {
+          navigate('/');
+        }}
+      >
+        메인 페이지로 이동
+      </button>
+    </NotFoundContainer>
   );
 };
 

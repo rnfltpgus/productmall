@@ -24,21 +24,19 @@ const FilterGroup = ({ type, label }: FilterGroupProps) => {
   };
 
   return (
-    <>
-      <FilterGroupContainer>
-        <TypeTitle>{type}</TypeTitle>
-        {[...label].map(data => {
-          return (
-            <CheckBox
-              key={data}
-              isChecked={filterListInfo.includes(data)}
-              clickHandler={() => clickLabelHandler(data)}
-              label={data}
-            />
-          );
-        })}
-      </FilterGroupContainer>
-    </>
+    <FilterGroupContainer>
+      <TypeTitle>{type}</TypeTitle>
+      {[...label].map(data => {
+        return (
+          <CheckBox
+            key={data}
+            isChecked={filterListInfo.includes(data)}
+            clickHandler={() => clickLabelHandler(data)}
+            label={data}
+          />
+        );
+      })}
+    </FilterGroupContainer>
   );
 };
 

@@ -3,11 +3,9 @@ import styled from '@emotion/styled';
 
 const LoadingSpanner = () => {
   return (
-    <>
-      <Loading>
-        <div />
-      </Loading>
-    </>
+    <Loading>
+      <div />
+    </Loading>
   );
 };
 
